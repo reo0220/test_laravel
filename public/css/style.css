@@ -1,0 +1,109 @@
+.header{
+    position: fixed; 
+    top: 0;
+    left: 0; 
+    margin: 0px;
+    background-color: black;
+    width: 100%;
+    height: 45px;
+}
+
+.header li{
+    list-style: none;
+    color: white;
+    float: left;
+    line-height: 45px;
+    padding-right: 30px;
+}
+
+main{
+    margin-top: 70px;
+    padding-bottom: 60px; 
+}
+
+.ul{
+    width: 500px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+
+.ul li {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.form_name {
+    margin-right: 10px;
+    width: 170px;
+    float: left;
+}
+
+.submit{
+    display: block;
+    margin: 0 auto;
+}
+
+.botton_back{
+    float: left;
+    margin-left: 35px;
+    margin-right:40px;
+}
+
+.complete_message{
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-top: 200px;
+}
+
+.complete_error_message{
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-top: 200px;
+    color: red;
+}
+
+.complete_h2{
+    margin-top: 60px;
+}
+
+.toppage{
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-top: 200px;
+}
+
+th{
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+td{
+    text-align: center;
+}
+
+.delete_confirm_message{
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-top: 200px;
+}
+
+a:visited{
+    color: black;
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+}
