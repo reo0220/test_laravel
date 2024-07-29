@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //Userモデルをuseする
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class AccountsController extends Controller
@@ -54,7 +56,7 @@ class AccountsController extends Controller
             'family_name_kana' => $request->family_name_kana,
             'last_name_kana' => $request->last_name_kana,
             'mail' => $request->mail,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'gender' => $request->gender,
             'postal_code' => $request->postal_code,
             'prefecture' => $request->prefecture,
@@ -70,19 +72,28 @@ class AccountsController extends Controller
             session()->flash('flash_error_message','エラーが発生したためアカウント登録できません。');
         }
 
+        $result_user = User::create([
+            'name' => $request->last_name,
+            'email' => $request->mail,
+            'password' => Hash::make($request->password),
+        ]);
+
         return view('regist_complete');
     }
 
     //トップ画面
     public function top()
     {
+        $id = Auth::id();
+        $authority = Account::select('authority')->where('id', $id)->get();
+        session(['authority' => $authority]);
         return view('top');
     }
 
     //アカウント一覧
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->get();
+        $users = Account::orderBy('id', 'desc')->get();
         return view('list', compact('users'));
     }
 
@@ -92,7 +103,7 @@ class AccountsController extends Controller
         //URLのパラメータを取得
         $user_id = $_GET["user_id"];
         //取得したidのアカウントのデータを取得
-        $users = User::where('id',$user_id)->get();
+        $users = Account::where('id',$user_id)->get();
         return view('delete',compact('users'));
     }
 
@@ -111,7 +122,7 @@ class AccountsController extends Controller
         $id = $request->input('id');
 
         //削除ぼたんをクリックしたidのアカウントの削除フラグを「1」に変更
-        $result = User::where('id', '=', $id)->update([
+        $result = Account::where('id', '=', $id)->update([
             'delete_flag' => '1',
         ]);
 
@@ -128,7 +139,7 @@ class AccountsController extends Controller
     public function account_update()
     {
         $user_id = $_GET["user_id"];
-        $users = User::where('id',$user_id)->get();
+        $users = Account::where('id',$user_id)->get();
         return view('update',compact('users'));
     }     
     
@@ -182,7 +193,7 @@ class AccountsController extends Controller
         $address_2 = $request->input('address_2');
         $authority = $request->input('authority');
 
-        $result = User::where('id', '=', $id)->update([
+        $result = Account::where('id', '=', $id)->update([
             'family_name' => $family_name,
             'last_name' => $last_name,
             'family_name_kana' => $family_name_kana,

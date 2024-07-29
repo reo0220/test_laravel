@@ -16,12 +16,11 @@ use App\Http\Controllers\AccountsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\AccountsController::class, 'top']);
 
 //アカウント登録画面
 Route::get('/form', [App\Http\Controllers\AccountsController::class, 'regist']);
@@ -32,17 +31,17 @@ Route::post('/complete',[App\Http\Controllers\AccountsController::class, 'store'
 //トップページ'
 Route::get('/top', [App\Http\Controllers\AccountsController::class, 'top']);
 //アカウント一覧
-Route::get('/list', 'App\Http\Controllers\AccountsController@index');
+Route::get('/list', [App\Http\Controllers\AccountsController::class,'index']);
 //アカウント削除
-Route::get('/delete','App\Http\Controllers\AccountsController@account_deletion');
+Route::get('/delete',[App\Http\Controllers\AccountsController::class,'account_deletion']);
 //アカウント削除確認画面
-Route::post('/delete_confirm', 'App\Http\Controllers\AccountsController@delete_confirm');
+Route::post('/delete_confirm', [App\Http\Controllers\AccountsController::class,'delete_confirm']);
 //アカウント削除完了画面
-Route::post('/delete_complete', 'App\Http\Controllers\AccountsController@delete_complete');
+Route::post('/delete_complete',[App\Http\Controllers\AccountsController::class,'delete_complete']);
 //アカウント更新
-Route::get('/update','App\Http\Controllers\AccountsController@account_update');
+Route::get('/update',[App\Http\Controllers\AccountsController::class,'account_update']);
 //アカウント更新確認
-Route::post('/update_confirm','App\Http\Controllers\AccountsController@update_confirm');
+Route::post('/update_confirm',[App\Http\Controllers\AccountsController::class,'update_confirm']);
 //アカウント更新完了
-Route::post('/update_complete','App\Http\Controllers\AccountsController@update_complete');
+Route::post('/update_complete',[App\Http\Controllers\AccountsController::class,'update_complete']);
 
