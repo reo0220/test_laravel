@@ -1,7 +1,4 @@
-<?php
-    $authority = session('authority');
-    dd($authority);
-?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -18,14 +15,16 @@
             <li>登録フォーム</li>
             <li>問い合わせ</li>
             <li>その他</li>
-            <?php if ($authority == '0') : ?>
+            @foreach($users as $user)
+            <?php if ($user->authority == 1) : ?>
                 <li>
-                    <button onclick="location.href='/regist'" class ="btn">アカウント登録</button>
+                    <button onclick="location.href='/form'" class ="btn">アカウント登録</button>
                 </li>
                 <li>
                     <button onclick="location.href='/list'" class ="btn">アカウント一覧</button>
                 </li>
             <?php endif; ?>
+            @endforeach
         </ul>
         <div class = "toppage">
             <h1>TOPページ</h1>
