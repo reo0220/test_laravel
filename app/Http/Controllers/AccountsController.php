@@ -84,10 +84,7 @@ class AccountsController extends Controller
     //トップ画面
     public function top()
     {
-        $id = Auth::id();
-        $users = Account::where('id',$id)->get();
-        //session(['authority' => $authority]);
-        return view('top',compact('users'));
+        return view('top');
     }
 
     //アカウント一覧
