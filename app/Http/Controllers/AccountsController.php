@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountsController extends Controller
 {
+
+    //ログインしていない時のエラー
+    public function login_error()
+    {
+        return view('login_error');
+    }
+
     public function regist()
     {
         return view('regist');

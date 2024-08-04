@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -9,14 +7,14 @@
     </head>
     <body>
         <ul class = "header">
-        @can('general-higher')
             <li>トップ</li>
             <li>プロフィール</li>
             <li>D.I.Blogについて</li>
             <li>登録フォーム</li>
             <li>問い合わせ</li>
             <li>その他</li>
-        @elsecan('user-higher')
+        <!--管理者にのみ表示-->    
+        @can('admin')
             <li>
                 <button onclick="location.href='/form'" class ="btn">アカウント登録</button>
             </li>
