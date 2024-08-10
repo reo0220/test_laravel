@@ -83,6 +83,7 @@ class AccountsController extends Controller
             'name' => $request->last_name,
             'email' => $request->mail,
             'password' => Hash::make($request->password),
+            'role' => $request->role
         ]);
 
         return view('regist_complete');
@@ -97,9 +98,138 @@ class AccountsController extends Controller
     //アカウント一覧
     public function index()
     {
-        $users = Account::orderBy('id', 'desc')->get();
-        return view('list', compact('users'));
+        return view('list');
     }
+
+    //アカウント検索
+    public function search(Request $request)
+    {
+        /* テーブルから全てのレコードを取得する */
+        $accounts = Account::query();
+
+        $family_name = $request->input('family_name');
+        $last_name = $request->input('last_name');
+        $family_name_kana = $request->input('family_name_kana');
+        $last_name_kana = $request->input('last_name_kana');
+        $mail = $request->input('mail');
+        $gender = $request->input('gender');
+        $authority = $request->input('authority');
+
+        /* セッションにデータを保存する */
+        session([
+            'family_name' => $family_name,
+            'last_name' => $last_name,
+            'family_name_kana' => $family_name_kana,
+            'last_name_kana' => $last_name_kana,
+            'mail' => $mail,
+            'gender' => $gender,
+            'authority' => $authority,
+        ]);
+
+        if(empty($family_name) && empty($last_name) && empty($family_name_kana) && empty($last_name_kana) && empty($mail) && empty($gender) && empty($authority))
+        {
+            $users = Account::orderBy('id', 'desc')->get();
+            return view('search_list',compact('users'));
+        }
+        elseif(!empty($family_name) || !empty($last_name) || !empty($family_name_kana) || !empty($last_name_kana) || !empty($mail) || !empty($gender) || !empty($authority))
+        {
+            if(!empty($family_name))
+            {
+                $family_name_split = mb_convert_kana($family_name, 's');
+                $family_name_split2 = preg_split('/[\s]+/', $family_name_split);
+                foreach ($family_name_split2 as $family_name_value) 
+                {
+                    $accounts->Where('family_name', 'LIKE', "%{$family_name_value}%");
+                }
+            }
+
+            if(!empty($last_name))
+            {
+                $last_name_split = mb_convert_kana($last_name, 's');
+                $last_name_split2 = preg_split('/[\s]+/', $last_name_split);
+                foreach ($last_name_split2 as $last_name_value)
+                {
+                    $accounts->Where('last_name', 'LIKE', "%{$last_name_value}%");
+                }
+            }
+
+            if(!empty($family_name_kana))
+            {
+                $family_name_kana_split = mb_convert_kana($family_name_kana, 's');
+                $family_name_kana_split2 = preg_split('/[\s]+/', $family_name_kana_split);
+                foreach ($family_name_kana_split2 as $family_name_kana_value) 
+                {
+                    $accounts->Where('family_name_kana', 'LIKE', "%{$family_name_kana_value}%");
+                }
+            }
+
+            if(!empty($last_name_kana))
+            {
+                $last_name_kana_split = mb_convert_kana($last_name_kana, 's');
+                $last_name_kana_split2 = preg_split('/[\s]+/', $last_name_kana_split);
+                foreach ($last_name_kana_split2 as $last_name_kana_value) 
+                {
+                    $accounts->Where('last_name_kana', 'LIKE', "%{$last_name_kana_value}%");
+                }
+            }
+
+            if(!empty($mail))
+            {
+                $mail_split = mb_convert_kana($mail, 's');
+                $mail_split2 = preg_split('/[\s]+/', $mail_split);
+                foreach ($mail_split2 as $mail_value) 
+                {
+                    $accounts->Where('mail', 'LIKE', "%{$mail_value}%");
+                }
+            }
+
+            if(!empty($gender))
+            {
+                if($gender == "男")
+                {
+                    $gender_search = 0; 
+                }
+
+                if($gender == "女")
+                {
+                    $gender_search = 1; 
+                }
+                $accounts->Where('gender', '=', $gender_search);
+            }
+
+            if(!empty($authority))
+            {
+                if($authority == "一般")
+                {
+                    $authority_search = 0; 
+                }
+
+                if($authority == "管理者")
+                {
+                    $authority_search = 1; 
+                }
+                $accounts->Where('authority', '=', $authority_search);
+            }
+
+            $users = $accounts->get();
+            $count = $accounts->count();
+
+            if($count > 0)
+            {
+                session(['search' => 'search']);
+            }else
+            {
+                session(['search' => 'not_search']);
+            }
+
+            return view('search_list',compact('users'));
+
+            
+        }
+
+
+    }
+
 
     //アカウント削除
     public function account_deletion()

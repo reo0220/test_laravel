@@ -97,6 +97,30 @@ a:visited{
     color: black;
 }
 
+.list_form{
+    margin-bottom: 50px;
+}
+
+.list_input{
+    height: 26px;
+    width: 301px;
+    border: none;
+}
+.list_pull{
+    height: 26px;
+    width: 301px;
+    border: none;
+}
+.kennsaku_botton{
+    margin-left: 850px;
+    width: 150px;;
+
+}
+
+.search_error{
+    margin-top: 200px;
+}
+
 footer{
     position: fixed;
     left: 0;

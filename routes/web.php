@@ -37,6 +37,8 @@ Route::get('/top', [App\Http\Controllers\AccountsController::class, 'top']);
 Route::get('/home', [App\Http\Controllers\AccountsController::class, 'top']);
 //アカウント一覧
 Route::get('/list', [App\Http\Controllers\AccountsController::class,'index']);
+//アカウント検索
+Route::post('/search_list', [App\Http\Controllers\AccountsController::class,'search']);
 //アカウント削除
 Route::get('/delete',[App\Http\Controllers\AccountsController::class,'account_deletion']);
 //アカウント削除確認画面
