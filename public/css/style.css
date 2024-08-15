@@ -121,6 +121,11 @@ a:visited{
     margin-top: 200px;
 }
 
+.validate_message{
+    color: red;
+    padding-left: 180px;
+}
+
 footer{
     position: fixed;
     left: 0;

@@ -6,6 +6,18 @@
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <title>アカウント登録画面</title>
+        <script>
+            //チェックボックスボタン
+            var remove = 0;
+            function radioDeselection(already, numeric) {
+                if(remove == numeric) {
+                    already.checked = false;
+                    remove = 0;
+                }else{
+                    remove = numeric;
+                }
+            }
+        </script>
     </head>
     <body>
         @can('admin')
@@ -27,36 +39,77 @@
                 <ul class = "ul">
                     <li>
                         <label class = "form_name" id = "formname_1">名前（姓）</label>
-                        <input type="text" name="family_name">
+                        <input type="text" name="family_name" pattern="[\u4E00-\u9FFF\u3040-\u309Fー]{0,10}" title="10文字以内の漢字・ひらがなで入力" value="{{ old('family_name') }}">
+                        <!-- バリデーションエラー（空欄）-->
+                        @if ($errors->any())
+                            @error('family_name')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li> 
                         <label class ="form_name">名前（名）</label>
-                        <input type="text" name="last_name">
+                        <input type="text" name="last_name" pattern="[\u4E00-\u9FFF\u3040-\u309Fー]{0,10}" title="10文字以内の漢字・ひらがなで入力" value="{{ old('last_name') }}">
+                        @if ($errors->any())
+                            @error('last_name')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">カナ（姓）</label>
-                        <input type="text" name="family_name_kana">
+                        <input type="text" name="family_name_kana" pattern="[\u30A1-\u30F6]{0,10}" title="10文字以内のカタカナで入力">
+                        @if ($errors->any())
+                            @error('family_name_kana')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li> 
                         <label class="form_name">カナ（名）</label>
-                        <input type="text" name="last_name_kana">
+                        <input type="text" name="last_name_kana" pattern="[\u30A1-\u30F6]{0,10}" title="10文字以内のカタカナで入力">
+                        @if ($errors->any())
+                            @error('last_name_kana')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">メールアドレス</label>
-                        <input type="text" name="mail">
+                        <input type="email" name="mail" maxlength = "100">
+                        @if ($errors->any())
+                            @error('mail')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">パスワード</label></label>
-                        <input type="password" name="password">
+                        <input type="text" name="password" pattern = "[0-9a-zA-Z]{0,10}" title="半角英数字のみ入力">
+                        @if ($errors->any())
+                            @error('password')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">性別</label>
-                        <input type="radio" name="gender" value ="男">男
-                        <input type="radio" name="gender" value ="女">女
+                        <input type="radio" name="gender" value ="男" onclick="radioDeselection(this, 1)" checked>男
+                        <input type="radio" name="gender" value ="女" onclick="radioDeselection(this, 1)">女
+                        @if ($errors->any())
+                            @error('gender')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li> 
                     <li>  
                         <label class="form_name">郵便番号</label>
-                        <input type="text" name="postal_code">
+                        <input type="text" name="postal_code" pattern = "[0-9]{0,7}" title = "7文字以内の半角数字で入力">
+                        @if ($errors->any())
+                            @error('postal_code')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class = "form_name">住所（都道府県）</label>
@@ -72,14 +125,29 @@
                             <option value="福岡県">福岡県</option>
                             <option value="沖縄県">沖縄県</option>
                         </select>
+                        @if ($errors->any())
+                            @error('prefecture')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">都道府県（市区町村）</label>
-                        <input type="text" name="address_1">
+                        <input type="text" name="address_1" pattern = "[\u30A1-\u30F6\u4E00-\u9FFF\u3040-\u309Fー0-9０-９\s-ー]{0,10}">
+                        @if ($errors->any())
+                            @error('address_1')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">都道府県（番地）</label>
-                        <input type="text" name="address_2">
+                        <input type="text" name="address_2" pattern = "[\u30A1-\u30F6\u4E00-\u9FFF\u3040-\u309Fー0-9０-９\s-ー]{0,10}">
+                        @if ($errors->any())
+                            @error('address_2')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </li>
                     <li>
                         <label class="form_name">アカウント権限</label>

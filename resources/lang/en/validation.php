@@ -13,6 +13,7 @@ return [
     |
     */
 
+    
     'accepted' => 'The :attribute must be accepted.',
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',
     'active_url' => 'The :attribute is not a valid URL.',
@@ -107,7 +108,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => ':attribute が未入力です。',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -158,6 +159,18 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'family_name' => '名前(姓)',
+        'last_name' => '名前(名)',
+        'family_name_kana' => 'カナ（姓）',
+        'last_name_kana' => 'カナ(名)',
+        'mail' => 'メールアドレス',
+        'password' => 'パスワード',
+        'gender' => '性別',
+        'prefecture' => '住所(都道府県）',
+        'postal_code' => '郵便番号',
+        'address_1' => '住所（市区町村）',
+        'address_2' => '住所(番地)',
+    ],
 
 ];

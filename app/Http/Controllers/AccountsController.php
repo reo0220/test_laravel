@@ -25,7 +25,23 @@ class AccountsController extends Controller
     }
 
     public function regist_post(Request $request)
-    {   //regist.bladeからPOSTされたデータを取得
+    {   
+        //アカウント登録画面の空欄チェック
+        $validated = $request->validate([
+            'family_name' => ['required'],
+            'last_name' => ['required'],
+            'family_name_kana' => ['required'],
+            'last_name_kana' => ['required'],
+            'mail' => ['required'],
+            'password' => ['required'],
+            'gender' => ['required'],
+            'prefecture' => ['required'],
+            'postal_code' => ['required'],
+            'address_1' => ['required'],
+            'address_2' => ['required'],
+        ]);
+    
+        //regist.bladeからPOSTされたデータを取得
         $family_name = $request->input('family_name');
         $last_name = $request->input('last_name');
         $family_name_kana = $request->input('family_name_kana');
