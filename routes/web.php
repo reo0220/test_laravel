@@ -26,6 +26,8 @@ Auth::routes();
 
 //アカウント登録画面
 Route::get('/form', [App\Http\Controllers\AccountsController::class, 'regist']);
+//アカウント登録画面(前に戻るボタン押下時)
+Route::post('/form', [App\Http\Controllers\AccountsController::class, 'regist_back']);
 //アカウント登録確認画面
 Route::post('/confirm', [App\Http\Controllers\AccountsController::class, 'regist_post']);
 Route::get('/confirm', [App\Http\Controllers\AccountsController::class, 'login_error']);
