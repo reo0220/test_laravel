@@ -28,23 +28,91 @@
                     <ul class = "ul">
                         <li>
                             <label class = "form_name" id = "formname_1">名前（姓）</label>
-                            <input type="text" name="family_name" value="{{ $user->family_name }}">
+                            <input type="text" name="family_name" pattern="[\u4E00-\u9FFF\u3040-\u309Fー]{0,10}" title="10文字以内の漢字・ひらがなで入力" value= <?php
+                                                                                                                                                                if(isset($family_name)){
+                                                                                                                                                                    echo $family_name;
+                                                                                                                                                                }elseif(old("family_name") != NULL){
+                                                                                                                                                                    echo old("family_name");
+                                                                                                                                                                }elseif(old("family_name") == NULL){
+                                                                                                                                                                    echo "";
+                                                                                                                                                                }else{
+                                                                                                                                                                    echo $user->family_name;
+                                                                                                                                                                }
+                                                                                                                                                            ?>>
+                                                                                                                                                                
+                            @if ($errors->any())
+                            @error('family_name')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                            @endif
                         </li>
                         <li> 
                             <label class ="form_name">名前（名）</label>
-                            <input type="text" name="last_name" value="{{ $user->last_name }}">
+                            <input type="text" name="last_name" pattern="[\u4E00-\u9FFF\u3040-\u309Fー]{0,10}" title="10文字以内の漢字・ひらがなで入力" value= <?php
+                                                                                                                                                                if(isset($last_name)){
+                                                                                                                                                                    echo $last_name;
+                                                                                                                                                                }elseif(old("last_name") != NULL){
+                                                                                                                                                                    echo old("last_name");
+                                                                                                                                                                }else{
+                                                                                                                                                                    echo $user->last_name;
+                                                                                                                                                                }
+                                                                                                                                                            ?>>
+                            @if ($errors->any())
+                            @error('last_name')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                            @endif
                         </li>
                         <li>
                             <label class="form_name">カナ（姓）</label>
-                            <input type="text" name="family_name_kana" value="{{ $user->family_name_kana }}">
+                            <input type="text" name="family_name_kana" pattern="[\u30A1-\u30F6]{0,10}" title="10文字以内のカタカナで入力" value= <?php
+                                                                                                                                                if(isset($family_name_kana)){
+                                                                                                                                                    echo $family_name_kana;
+                                                                                                                                                }elseif(old("family_name_kana") != NULL){
+                                                                                                                                                    echo old("family_name_kana");
+                                                                                                                                                }else{
+                                                                                                                                                    echo $user->family_name_kana;
+                                                                                                                                                }
+                                                                                                                                            ?>>
+                            @if ($errors->any())
+                            @error('family_name_kana')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                            @endif
                         </li>
                         <li> 
                             <label class="form_name">カナ（名）</label>
-                            <input type="text" name="last_name_kana" value="{{ $user->last_name_kana }}">
+                            <input type="text" name="last_name_kana" pattern="[\u30A1-\u30F6]{0,10}" title="10文字以内のカタカナで入力" value= <?php
+                                                                                                                                                if(isset($last_name_kana)){
+                                                                                                                                                    echo $last_name_kana;
+                                                                                                                                                }elseif(old("last_name_kana") != NULL){
+                                                                                                                                                    echo old("last_name_kana");
+                                                                                                                                                }else{
+                                                                                                                                                    echo $user->last_name_kana;
+                                                                                                                                                }
+                                                                                                                                            ?>>
+                            @if ($errors->any())
+                            @error('last_name_kana')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                            @endif
                         </li>
                         <li>
                             <label class="form_name">メールアドレス</label>
-                            <input type="text" name="mail" value="{{ $user->mail }}">
+                            <input type="text" name="mail" maxlength = "100" value= <?php
+                                                                                        if(isset($mail)){
+                                                                                            echo $mail;
+                                                                                        }elseif(old("mail") != NULL){
+                                                                                            echo old("mail");
+                                                                                        }else{
+                                                                                            echo $user->mail;
+                                                                                        }
+                                                                                    ?>>
+                            @if ($errors->any())
+                            @error('mail')
+                                <div class="validate_message">{{ $message }}</div>
+                            @enderror
+                            @endif
                         </li>
                         <li>
                             <label class="form_name">パスワード</label></label>

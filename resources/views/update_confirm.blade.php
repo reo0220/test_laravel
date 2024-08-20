@@ -74,7 +74,22 @@
                     <label class ="form_name">アカウント権限</label>
                     <p>{{$authority}}</p>
                 </li>
-                <button class = "botton_back"><a href ='update?user_id={{$id}}' style = "text-decoration:none;">前に戻る</a></button>
+                <form method = "POST" action ="/update?user_id={{$id}}">
+                @csrf
+                    <input type = "hidden" value = "<?php echo $family_name; ?>" name = "family_name">
+                    <input type = "hidden" value = "<?php echo $last_name; ?>" name = "last_name">
+                    <input type = "hidden" value = "<?php echo $family_name_kana; ?>" name = "family_name_kana">
+                    <input type = "hidden" value = "<?php echo $last_name_kana; ?>" name = "last_name_kana">
+                    <input type = "hidden" value = "<?php echo $mail; ?>" name = "mail">
+                    <input type = "hidden" value = "<?php echo $password; ?>" name = "password">
+                    <input type = "hidden" value = "<?php echo $gender;?>" name = "gender">
+                    <input type = "hidden" value = "<?php echo $postal_code; ?>" name = "postal_code">
+                    <input type = "hidden" value = "<?php echo $prefecture; ?>" name = "prefecture">
+                    <input type = "hidden" value = "<?php echo $address_1; ?>" name = "address_1">
+                    <input type = "hidden" value = "<?php echo $address_2; ?>" name = "address_2">
+                    <input type = "hidden" value = "<?php echo $authority;?>" name = "authority">
+                    <input type = "submit" class = "botton_back" value = "前に戻る">
+                </form>
                 <form method = "POST" action ="/update_complete">
                     @csrf
                     <input type = "hidden" value = "{{$family_name}}" name = "family_name">

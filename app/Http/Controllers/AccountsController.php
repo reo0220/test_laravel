@@ -322,10 +322,57 @@ class AccountsController extends Controller
         $user_id = $_GET["user_id"];
         $users = Account::where('id',$user_id)->get();
         return view('update',compact('users'));
-    }     
+    }
+    
+    public function account_update_back(Request $request)
+    {
+        $family_name = $request->input('family_name');
+        $last_name = $request->input('last_name');
+        $family_name_kana = $request->input('family_name_kana');
+        $last_name_kana = $request->input('last_name_kana');
+        $mail = $request->input('mail');
+        $password = $request->input('password');
+        $gender = $request->input('gender');
+        $postal_code = $request->input('postal_code');
+        $prefecture = $request->input('prefecture');
+        $address_1 = $request->input('address_1');
+        $address_2 = $request->input('address_2');
+        $authority = $request->input('authority');
+
+        return view('regist', [
+            'family_name' => $family_name,
+            'last_name' => $last_name,
+            'family_name_kana' => $family_name_kana,
+            'last_name_kana' => $last_name_kana,
+            'mail' => $mail,
+            'password' => $password,
+            'gender' => $gender,
+            'postal_code' => $postal_code,
+            'prefecture' => $prefecture,
+            'address_1' => $address_1,
+            'address_2' => $address_2,
+            'authority' => $authority,
+        ]);
+    }
     
     public function update_confirm(Request $request)
-    {
+    { 
+        $validated = $request->validate
+        ([
+            'family_name' => ['required'],
+            'last_name' => ['required'],
+            'family_name_kana' => ['required'],
+            'last_name_kana' => ['required'],
+            'mail' => ['required'],
+            'password' => ['required'],
+            'gender' => ['required'],
+            'prefecture' => ['required'],
+            'postal_code' => ['required'],
+            'address_1' => ['required'],
+            'address_2' => ['required'],
+        ]);
+
+
         $id = $request->input('id');
         $family_name = $request->input('family_name');
         $last_name = $request->input('last_name');

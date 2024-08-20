@@ -51,6 +51,7 @@ Route::post('/delete_complete',[App\Http\Controllers\AccountsController::class,'
 Route::get('/delete_complete',[App\Http\Controllers\AccountsController::class,'login_error']);
 //アカウント更新
 Route::get('/update',[App\Http\Controllers\AccountsController::class,'account_update']);
+Route::post('/update',[App\Http\Controllers\AccountsController::class,'account_update_back']);
 //アカウント更新確認
 Route::post('/update_confirm',[App\Http\Controllers\AccountsController::class,'update_confirm']);
 Route::get('/update_confirm',[App\Http\Controllers\AccountsController::class,'login_error']);
